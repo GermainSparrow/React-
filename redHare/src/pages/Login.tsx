@@ -1,11 +1,22 @@
 import logo from '../images/logo.png';
 import { Button, Checkbox, Form, Input, Tabs, Space } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
-
+import apis from '../utils/apis';
 function login(): JSX.Element {
     //点击登录时函数
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        //调用接口
+        apis.user.login({
+            body: {
+                username: values.username,
+                password: values.password
+            }
+        }).then((msg) => {
+            console.log('msg2222222', msg);
+
+        })
+
     }
     return <div style={{ width: '100vw' }}>
         <div style={{ textAlign: 'center', marginTop: '116px' }}>
@@ -15,8 +26,10 @@ function login(): JSX.Element {
         <div>
             <Tabs centered>
                 <TabPane tab="账号密码登录" key="1">
-                    <Form>
+                    <Form
+                        onFinish={onFinish}>
                         <Form.Item
+                            name='username'
                             rules={[{ required: true, message: 'Please input your username!' }]}
                             style={{ textAlign: 'center' }}
                         >
@@ -24,10 +37,14 @@ function login(): JSX.Element {
                         </Form.Item>
 
                         <Form.Item
+                            name='password'
                             rules={[{ required: true, message: 'Please input your password!' }]}
                             style={{ textAlign: 'center' }}
                         >
                             <Input.Password style={{ width: '360px' }} />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" style={{ position: 'absolute', left: '50%', translate: '-50%', width: '360px' }}>点击登陆</Button>
                         </Form.Item>
                     </Form>
                 </TabPane>
@@ -46,11 +63,14 @@ function login(): JSX.Element {
                         >
                             <Input.Password style={{ width: '360px' }} />
                         </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" style={{ position: 'absolute', left: '50%', translate: '-50%', width: '360px' }}>点击登陆</Button>
+                        </Form.Item>
                     </Form>
                 </TabPane>
 
             </Tabs>
-            <Button type="primary">点击登陆</Button>
+
         </div>
 
     </div>
