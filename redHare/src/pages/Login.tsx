@@ -2,7 +2,9 @@ import logo from '../images/logo.png';
 import { Button, Checkbox, Form, Input, Tabs, Space } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import apis from '../utils/apis';
+import { useNavigate } from 'react-router-dom'
 function login(): JSX.Element {
+    const navigate = useNavigate()
     //点击登录时函数
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -14,7 +16,12 @@ function login(): JSX.Element {
             }
         }).then((msg) => {
             console.log('msg2222222', msg);
-
+            if (msg.message == '认证成功') {
+                localStorage.setItem('token', msg.data.token);
+                localStorage.setItem('permission', JSON.stringify(msg.data.permissions));
+                localStorage.setItem('user', JSON.stringify(msg.data.user));
+                navigate('/navPage')
+            }
         })
 
     }
