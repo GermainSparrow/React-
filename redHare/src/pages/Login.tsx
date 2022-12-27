@@ -20,7 +20,7 @@ function login(): JSX.Element {
                 localStorage.setItem('token', msg.data.token);
                 localStorage.setItem('permission', JSON.stringify(msg.data.permissions));
                 localStorage.setItem('user', JSON.stringify(msg.data.user));
-                navigate('/navPage')
+                navigate('/system')
             }
         })
 

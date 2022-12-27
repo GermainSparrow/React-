@@ -8,6 +8,9 @@ export default {
     user: {
         login(body: Options) {
             return request('/login', body)
+        },
+        getUser(query:Options){
+            return request ('/user',query)
         }
     },
     menu: {
